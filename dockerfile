@@ -1,15 +1,19 @@
 # Python 3.11のスリム版を使用
 FROM python:3.11-slim
 
-# FFmpegと依存関係をインストール
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+# FFmpeg、ビルドに必要なツール(PyNaCl用)をインストール
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    gcc \
+    python3-dev \
+    libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # 作業ディレクトリ設定
 WORKDIR /app
 
-# ライブラリをインストール
-# yt-dlpは頻繁に更新されるため、キャッシュを使わず最新を入れるのがコツ
-RUN pip install --no-cache-dir discord.py yt-dlp
+# ライブラリをインストール（PyNaClを追加）
+RUN pip install --no-cache-dir discord.py[voice] yt-dlp
 
 # ソースコードをコピー
 COPY . .
