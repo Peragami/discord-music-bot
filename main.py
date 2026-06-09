@@ -37,7 +37,7 @@ STREAM_YDL_OPTIONS = {
 }
 
 PLAYLIST_YDL_OPTIONS = {
-    "extract_flat": "in_playlist",
+    "extract_flat": True,
     "ignoreerrors": True,
     "noplaylist": False,
     "quiet": True,
@@ -311,7 +311,7 @@ async def queue(ctx):
     await ctx.send(msg)
 
 
-@bot.command(name="delete", aliases=["d", "remove", "rm"])
+@bot.command(name="delete", aliases=["d"])
 async def delete_from_queue(ctx, position: int = None):
     guild_id = ctx.guild.id
     queue_items = queues.get(guild_id)
