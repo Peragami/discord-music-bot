@@ -1,7 +1,8 @@
 services:
   music-bot:
     build: .
-    container_name: ${BOT_NAME}
     restart: always
     environment:
-      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      COMMAND_PREFIX_LETTER: ${COMMAND_PREFIX_LETTER:-t}
+      MAX_PLAYLIST_ITEMS: ${MAX_PLAYLIST_ITEMS:-100}
